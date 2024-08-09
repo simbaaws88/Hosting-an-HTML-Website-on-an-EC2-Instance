@@ -1,14 +1,17 @@
+![Alt text](Reference+Architecture.jpg)
+---
+
 # Hosting an HTML Website on an EC2 Instance
 
 ## Overview
 
-This project demonstrates how to host an HTML website on an AWS EC2 instance. The website files are stored in an S3 bucket, and a bash script is used to automate the deployment process. The script downloads the files from the S3 bucket, extracts them, and sets up the website on an EC2 instance running an Apache web server.
+This project demonstrates how to host an HTML website on an AWS EC2 instance by utilizing a GitHub repository and automating the deployment process with a bash script. The script is designed to set up the necessary environment on the EC2 instance, download the website files from the GitHub repository, and configure the Apache web server to serve the website.
 
-## Hosting from an S3 Bucket
+## Task: Hosting from a GitHub Repository
 
 ### Description
 
-In this task, the website files are stored in an S3 bucket. A bash script is used to automatically download these files, extract them, and configure the website on an EC2 instance running the Apache web server.
+The website files are stored in a GitHub repository. A bash script is used to clone the repository, extract the website files, and configure the website on an EC2 instance running an Apache web server.
 
 ### Script
 
@@ -16,11 +19,11 @@ In this task, the website files are stored in an S3 bucket. A bash script is use
 #!/bin/bash
 sudo su
 yum update -y
-yum install -y httpd aws-cli
-cd /var/www/html
-aws s3 cp s3://awsv8bucket/mole.zip .
-unzip mole.zip
-cp -R mole/. /var/www/html
+yum install -y httpd git
+git clone https://github.com/simbaaws88/Hosting-an-HTML-Website-on-an-EC2-Instance.git
+cd Hosting-an-HTML-Website-on-an-EC2-Instance
+unzip techmax.zip
+mv techmax/* /var/www/html
 systemctl enable httpd
 systemctl start httpd
 ```
@@ -28,17 +31,15 @@ systemctl start httpd
 ### Steps
 
 1. **Update Packages**: The script begins by updating all packages on the EC2 instance to ensure they are up-to-date.
-2. **Install Apache and AWS CLI**: The script installs the Apache web server (`httpd`) and the AWS CLI.
-3. **Download Website Files**: The script downloads the `mole.zip` file containing the website files from the specified S3 bucket.
-4. **Extract and Deploy**: The script extracts the files from `mole.zip` and copies them to the appropriate directory.
+2. **Install Apache and Git**: The script installs the Apache web server (`httpd`) and Git, which is necessary for cloning repositories.
+3. **Clone the GitHub Repository**: The script clones the specified GitHub repository containing the website files.
+4. **Extract and Deploy**: The script extracts the `techmax.zip` file and moves the extracted files to the appropriate directory for the Apache server to serve.
 5. **Start Apache Server**: The script enables the Apache service to start on boot and starts the service.
 
 ### Result
 
-The website is successfully hosted on the EC2 instance using files from the S3 bucket.
+The website is successfully hosted on the EC2 instance using files from the GitHub repository. The Apache server is configured to serve the website, making it accessible to users.
 
 ## Conclusion
 
-This task successfully demonstrates how to automate the deployment of a website on an AWS EC2 instance using a bash script. The script handles the entire process, from downloading the files from S3 to configuring the web server and hosting the website.
-
----
+This task successfully demonstrates how to automate the deployment of a website on an AWS EC2 instance using a bash script and a GitHub repository. The script efficiently handles the entire process, from setting up the environment to configuring the web server and hosting the website.
